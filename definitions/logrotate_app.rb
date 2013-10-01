@@ -54,6 +54,7 @@ define :logrotate_app, :enable => true, :frequency => "weekly", :template => "lo
         :lastaction => params[:lastaction],
         :options => options
       )
+      notifies :reload, 'service[logrotate]', :delayed
     end
 
   else
