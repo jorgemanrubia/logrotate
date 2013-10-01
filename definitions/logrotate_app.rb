@@ -48,10 +48,10 @@ define :logrotate_app, :enable => true, :frequency => "weekly", :template => "lo
         :rotate => params[:rotate],
         :olddir => params[:olddir],
         :sharedscripts => params[:sharedscripts],
-        :postrotate => params[:postrotate],
-        :prerotate => params[:prerotate],
-        :firstaction => params[:firstaction],
-        :lastaction => params[:lastaction],
+        :postrotate => Array(params[:postrotate]).join("\n"),
+        :prerotate => Array(params[:prerotate]).join("\n"),
+        :firstaction => Array(params[:firstaction]).join("\n"),
+        :lastaction => Array(params[:lastaction]).join("\n"),
         :options => options
       )
     end
