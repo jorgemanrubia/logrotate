@@ -21,7 +21,6 @@ define :logrotate_app, :enable => true, :frequency => "weekly", :template => "lo
   include_recipe "logrotate"
 
   acceptable_options = ['missingok', 'compress', 'delaycompress', 'dateext', 'copytruncate', 'notifempty', 'delaycompress', 'ifempty', 'mailfirst', 'nocompress', 'nocopy', 'nocopytruncate', 'nocreate', 'nodelaycompress', 'nomail', 'nomissingok', 'noolddir', 'nosharedscripts', 'notifempty', 'sharedscripts']
-  path = Array(params[:path])
   options_tmp = params[:options] ||= ["missingok", "compress", "delaycompress", "copytruncate", "notifempty"]
   options = options_tmp.respond_to?(:each) ? options_tmp : options_tmp.split
 
@@ -40,7 +39,7 @@ define :logrotate_app, :enable => true, :frequency => "weekly", :template => "lo
       group "root"
       backup false
       variables(
-        :path => path,
+        :path => Array(params[:path]).map { |path| %Q(#{path}).inspect }.join(' '),
         :create => params[:create],
         :frequency => params[:frequency],
         :size => params[:size],
